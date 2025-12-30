@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quize Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h3 id="headingText">Trivia Quiz Game</h3>
+    </header>
+    <section id="mainContainer">
+        <div id="playerSetupPage">
+            <input type="text" id="player1" placeholder="Enter First Player Name">
+            <p id="errorPlyer1"></p>
+            <input type="text" id="player2" placeholder="Enter Second Player Name">
+            <p id="errorPlyer2"></p>
+            <p id="errorBoth"></p>
+            <button id="startBtn">Start</button>
+        </div>
+
+        <div id="categoryPage" style="display: none;">
+            <h3 id="roundText"></h3>
+            <div>
+                <select name="category" id="allCategory">
+                    <option value="" class="categoryOption">Select Category</option>
+                    <option value="music" class="categoryOption">Music</option>
+                    <option value="sport_and_leisure" class="categoryOption">Sport & Leisure</option>
+                    <option value="film_and_tv" class="categoryOption">Film & Tv</option>
+                    <option value="arts_and_literature" class="categoryOption">Arts & Literature</option>
+                    <option value="history" class="categoryOption">History</option>
+                    <option value="society_and_culture" class="categoryOption">Society & Culture</option>
+                    <option value="science" class="categoryOption">Science</option>
+                    <option value="geography" class="categoryOption">Geography</option>
+                    <option value="food_and_drink" class="categoryOption">Food & Drink</option>
+                    <option value="general_knowledge" class="categoryOption">General Knowledge</option>
+                </select>
+                <button id="startGame" type="button">Start Game</button>
+            </div>
+        </div>
+        <div id="errMegPage"></div>
+        <div id="questionPage" style="display: none;">
+            <div id="roundTurn">
+                <h3 id="roundTextQue"></h3>
+                <h3 id="playerTurn"></h3>
+            </div>
+
+            <div id="playerScore">
+                <p id="player1Score"></p>
+                <p id="player2Score"></p>
+            </div>
+            <div id="extraInfo">
+                <p id="categoryText"></p>
+                <p id="difficultyText"></p>
+            </div>
+            <div id="questionContainer">
+                <h3 id="que"></h3>
+                <div id="optionsContainer">
+                    <input type="radio" class="options" id="option1" name="option">
+                    <label for="option1" class="optionText"> </label>
+                    <br>
+                    <input type="radio" class="options" id="option2" name="option">
+                    <label for="option2" class="optionText"></label>
+                    <br>
+                    <input type="radio" class="options" id="option3" name="option">
+                    <label for="option3" class="optionText"></label>
+                    <br>
+                    <input type="radio" class="options" id="option4" name="option">
+                    <label for="option4" class="optionText"></label>
+                </div>
+                <h4 id="answerMsg"></h4>
+                <button id="nextBtn" type="button" disabled>Next Question</button>
+            </div>
+        </div>
+        <div id="summaryPage" style="display: none;">
+            <button id="nextRoundBtn">Next Round</button>
+            <button id="endGameBtn">End Game</button>
+        </div>
+
+        <div id="finalResultPage" style="display: none;">
+            <h3 id="resultText"></h3>
+            <div id="finalPlayerScores">
+                <p id="finalScorePlyer1"></p>
+                <p id="finalScorePlyer2"></p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+<!-- All category
+ "music" "sport_and_leisure" "film_and_tv" "arts_and_literature" "history" "society_and_culture" "science" "geography" "food_and_drink" "general_knowledge" -->
