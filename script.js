@@ -1,34 +1,34 @@
-let playerInput1 = document.getElementById("player1");
-let playerInput2 = document.getElementById("player2");
-let startBtn = document.getElementById("startBtn");
-let errorPlyer1 = document.getElementById("errorPlyer1");
-let errorPlyer2 = document.getElementById("errorPlyer2");
-let categoryPage = document.getElementById("categoryPage");
-let playerSetupPage = document.getElementById("playerSetupPage");
-let startGame = document.getElementById("startGame");
-let allCategory = document.getElementById("allCategory");
-let errMegPage = document.getElementById("errMegPage");
-let questionPage = document.getElementById("questionPage");
-let questionText = document.getElementById("que");
-let allOptions = document.querySelectorAll(".options");
-let allOptionsText = document.querySelectorAll(".optionText");
-let errorBoth = document.getElementById("errorBoth");
-let roundText = document.getElementById("roundText");
-let answerMsg = document.getElementById("answerMsg");
-let nextBtn = document.getElementById("nextBtn");
-let playerTurnText = document.getElementById("playerTurn");
-let categoryText = document.getElementById("categoryText");
-let difficultyText = document.getElementById("difficultyText");
-let roundTextQue = document.getElementById("roundTextQue");
-let player1ScoreText = document.getElementById("player1Score");
-let player2ScoreText = document.getElementById("player2Score");
-let summaryPage = document.getElementById("summaryPage");
-let nextRoundBtn = document.getElementById("nextRoundBtn");
-let endGameBtn = document.getElementById("endGameBtn");
-let finalResultPage = document.getElementById("finalResultPage");
-let finalScorePlyer1 = document.getElementById("finalScorePlyer1");
-let finalScorePlyer2 = document.getElementById("finalScorePlyer2");
-let resultContain = document.getElementById("resultText");
+const playerInput1 = document.getElementById("player1");
+const playerInput2 = document.getElementById("player2");
+const startBtn = document.getElementById("startBtn");
+const errorPlyer1 = document.getElementById("errorPlyer1");
+const errorPlyer2 = document.getElementById("errorPlyer2");
+const categoryPage = document.getElementById("categoryPage");
+const playerSetupPage = document.getElementById("playerSetupPage");
+const startGame = document.getElementById("startGame");
+const allCategory = document.getElementById("allCategory");
+const errMegPage = document.getElementById("errMegPage");
+const questionPage = document.getElementById("questionPage");
+const questionText = document.getElementById("que");
+const allOptions = document.querySelectorAll(".options");
+const allOptionsText = document.querySelectorAll(".optionText");
+const errorBoth = document.getElementById("errorBoth");
+const roundText = document.getElementById("roundText");
+const answerMsg = document.getElementById("answerMsg");
+const nextBtn = document.getElementById("nextBtn");
+const playerTurnText = document.getElementById("playerTurn");
+const categoryText = document.getElementById("categoryText");
+const difficultyText = document.getElementById("difficultyText");
+const roundTextQue = document.getElementById("roundTextQue");
+const player1ScoreText = document.getElementById("player1Score");
+const player2ScoreText = document.getElementById("player2Score");
+const summaryPage = document.getElementById("summaryPage");
+const nextRoundBtn = document.getElementById("nextRoundBtn");
+const endGameBtn = document.getElementById("endGameBtn");
+const finalResultPage = document.getElementById("finalResultPage");
+const finalScorePlyer1 = document.getElementById("finalScorePlyer1");
+const finalScorePlyer2 = document.getElementById("finalScorePlyer2");
+const resultContain = document.getElementById("resultText");
 let round = 1;
 let player1;
 let player2;
@@ -40,7 +40,10 @@ let difficulties;
 let question;
 let i = 0;
 let correctAnswer;
+// startGame.disabled=true;
 
+
+// setup plaerName
 startBtn.addEventListener("click", function () {
   if (playerInput1.value.trim() == "") {
     errorPlyer1.innerText = "Enter Vaild Name";
@@ -52,7 +55,7 @@ startBtn.addEventListener("click", function () {
   } else if (playerInput1.value === playerInput2.value) {
     errorPlyer2.innerText = "";
     errorPlyer1.innerText = "";
-    errorBoth.innerText = "Both player name is same use uniqe one";
+    errorBoth.innerText = "Both player names are identical. Please use unique names.";
     return;
   } else {
     errorPlyer1.innerText = "";
@@ -61,19 +64,19 @@ startBtn.addEventListener("click", function () {
     player1 = playerInput1.value;
     player2 = playerInput2.value;
   }
-  console.log(player1, player2);
   playerSetupPage.style.display = "none";
   categoryPage.style.display = "block";
+  category = allCategory.value;
   roundText.innerText = `Round ${round}`;
-  // playerName1.innerText = player1;
-  // playerName2.innerText = player2;
 });
 
+// categoery section
 startGame.addEventListener("click", function () {
   category = allCategory.value;
   fetchQue(category);
 });
 
+// fetch question using category
 async function fetchQue(category) {
   try {
     let response = await Promise.all([
@@ -112,6 +115,7 @@ async function fetchQue(category) {
   }
 }
 
+// display question
 function displayQue(questions) {
   categoryPage.style.display = "none";
   questionPage.style.display = "block";
@@ -120,7 +124,6 @@ function displayQue(questions) {
   let mixAnswer = [...item.incorrectAnswers];
   mixAnswer.push(item.correctAnswer);
   correctAnswer = item.correctAnswer;
-
   for (let j = 0; j < mixAnswer.length; j++) {
     let index = Math.floor(Math.random() * (j + 1));
     let temp;
@@ -128,7 +131,6 @@ function displayQue(questions) {
     mixAnswer[j] = mixAnswer[index];
     mixAnswer[index] = temp;
   }
-
   findDifficulty();
   findCurrentPlayer();
   player1ScoreText.innerText = `${player1} : ${player1Score}`;
@@ -151,6 +153,7 @@ function displayQue(questions) {
   // allOptionsText[3].innerText = mixAnswer[3];
 }
 
+// choosen answer lisnter
 allOptions.forEach(function (option) {
   option.addEventListener("click", function () {
     let chooseAnswer = option.value;
@@ -158,6 +161,7 @@ allOptions.forEach(function (option) {
   });
 });
 
+// check answer and update score inside it
 function checkAnswer(choosenAnswer) {
   allOptions[0].disabled = true;
   allOptions[1].disabled = true;
@@ -175,17 +179,18 @@ function checkAnswer(choosenAnswer) {
     player1ScoreText.innerText = `${player1} : ${player1Score}`;
     player2ScoreText.innerText = `${player2} : ${player2Score}`;
   } else {
-    answerMsg.innerText = `Oh it's Wrong!, Correct answer is: ${correctAnswer}`;
+    answerMsg.innerText = `Oops! That's incorrect. The correct answer is: ${correctAnswer}`;
     answerMsg.style.color = "red";
   }
   nextBtn.disabled = false;
 }
 
+// next btn in question 
 nextBtn.addEventListener("click", function () {
-  allOptions[0].checked = "";
-  allOptions[1].checked = "";
-  allOptions[2].checked = "";
-  allOptions[3].checked = "";
+  allOptions[0].checked = false;
+  allOptions[1].checked = false;
+  allOptions[2].checked = false;
+  allOptions[3].checked = false;
   allOptions[0].disabled = false;
   allOptions[1].disabled = false;
   allOptions[2].disabled = false;
@@ -203,29 +208,9 @@ nextBtn.addEventListener("click", function () {
   }
 });
 
-endGameBtn.addEventListener("click", function () {
-  summaryPage.style.display = "none";
-  finalResultPage.style.display = "block";
 
-  if (player1Score < player2Score) {
-    resultContain.innerText = `${player2} is Win the Game`;
-  } else if (player2Score < player1Score) {
-    resultContain.innerText = `${player1} is win the Game`;
-  } else {
-    resultContain.innerText = `Game draw as both  player have equal score.`;
-  }
-  finalScorePlyer1.innerText = `${player1} Score is ${player1Score}`;
-  finalScorePlyer2.innerText = `${player2} Score is ${player2Score}`;
-});
 
-nextRoundBtn.addEventListener("click", function () {
-  console.log(allCategory);
-  summaryPage.style.display = "none";
-  categoryPage.style.display = "block";
-  allCategory.value = "";
-  round += 1;
-  roundText.innerText = `Round ${round}`;
-});
+// update score
 function updateScore() {
   let score;
   if (difficulties == "Easy") {
@@ -241,6 +226,8 @@ function updateScore() {
     player2Score += score;
   }
 }
+
+// find current player
 function findCurrentPlayer() {
   if (i % 2 == 0) {
     currectPlayer = player1;
@@ -248,6 +235,8 @@ function findCurrentPlayer() {
     currectPlayer = player2;
   }
 }
+
+// find difficuty
 function findDifficulty() {
   if (i < 2) {
     difficulties = "Easy";
@@ -258,10 +247,34 @@ function findDifficulty() {
   }
 }
 
+// end game btn lisenter
+endGameBtn.addEventListener("click", function () {
+  summaryPage.style.display = "none";
+  finalResultPage.style.display = "block";
+
+  if (player1Score < player2Score) {
+    resultContain.innerText = `${player2} wins the game!`;
+  } else if (player2Score < player1Score) {
+    resultContain.innerText = `${player1} wins the game!`;
+  } else {
+    resultContain.innerText = `Game draw as both  player have equal score.`;
+  }
+  finalScorePlyer1.innerText = `${player1} Score is ${player1Score}`;
+  finalScorePlyer2.innerText = `${player2} Score is ${player2Score}`;
+});
+
+
+// next round btn lisenter
+nextRoundBtn.addEventListener("click", function () {
+  summaryPage.style.display = "none";
+  categoryPage.style.display = "block";
+  allCategory.value = "";
+  round += 1;
+  roundText.innerText = `Round ${round}`;
+});
+// remove category
 function removeCategry() {
   let categoryOptionList = document.querySelectorAll(".categoryOption");
-  console.log(categoryOptionList);
-
   if (allCategory.length > 2) {
     categoryOptionList.forEach(function (option, index) {
       if (option.value == category) {
